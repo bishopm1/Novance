@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".CreateAccountActivity"
+    android:theme="@style/LoginTheme">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <RelativeLayout
+        android:id="@+id/innerLayout"
+        android:layout_width="300dp"
+        android:layout_height="450dp"
+        android:layout_centerInParent="true"
+        android:backgroundTint="#CFDBE9">
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordEditText"
+            android:layout_marginTop="10dp"
+            android:autofillHints=""
+            android:backgroundTint="#243248"
+            android:ems="10"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:textColor="#243248"
+            android:textColorHint="#243248" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emailEditText"
+            android:layout_marginTop="10dp"
+            android:autofillHints=""
+            android:backgroundTint="#243248"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="#243248"
+            android:textColorHint="#243248" />
+
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="-1dp"
+            android:textColor="#F44336"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/createAccountBtn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmPasswordEditText"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="62dp"
+            android:background="@drawable/create_account_button_bg"
+            android:text="@string/create_account"
+            android:textColor="#243248"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usernameEditText"
+            android:layout_marginTop="10dp"
+            android:autofillHints=""
+            android:backgroundTint="#243248"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColor="#243248"
+            android:textColorHint="#243248" />
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="63dp"
+            android:autofillHints=""
+            android:backgroundTint="#243248"
+            android:ems="10"
+            android:hint="@string/full_name"
+            android:inputType="textPersonName|text"
+            android:textColor="#243248"
+            android:textColorHint="#243248" />
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameEditText"
+            android:layout_marginTop="10dp"
+            android:autofillHints=""
+            android:backgroundTint="#243248"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="text"
+            android:textColor="#243248"
+            android:textColorHint="#243248" />
+
+    </RelativeLayout>
+</RelativeLayout>

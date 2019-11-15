@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:theme="@style/AppTheme">
+
+    <RelativeLayout
+        android:id="@+id/startupPreviewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileImageView"
+        android:layout_marginTop="10dp"
+        android:background="?android:selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/rightArrowImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="0dp"
+            android:contentDescription="@string/right_arrow"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+        <ImageView
+            android:id="@+id/startupImageView"
+            android:layout_width="134dp"
+            android:layout_height="75dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:contentDescription="@string/startup_cover_image"
+            app:srcCompat="@drawable/sample_startup_cover_image" />
+
+<!--        android:src="@drawable/sample_startup_cover_image"-->
+
+        <TextView
+            android:id="@+id/startupNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toStartOf="@id/rightArrowImageView"
+            android:layout_toEndOf="@+id/startupImageView"
+            android:text="@string/novance"
+            android:textColor="@color/novance_blue"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/startupDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/startupNameTextView"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toStartOf="@+id/rightArrowImageView"
+            android:layout_toEndOf="@+id/startupImageView"
+            android:text="@string/sample_startup_description"
+            android:textColor="@color/novance_mid_blue"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-5dp"
+        android:layout_toEndOf="@+id/profileImageView"
+        android:text="@string/atUsername"
+        android:textColor="@color/novance_mid_blue" />
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/user_profile_image"
+        app:srcCompat="@drawable/senior_photo_circle_" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/profileImageView"
+        android:text="@string/full_name"
+        android:textColor="@color/novance_blue"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/biTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/profileImageView"
+        android:text="@string/sample_bio"
+        android:textColor="@color/novance_mid_blue" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:layout_below="@+id/startupPreviewLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="58dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/followingBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:text="@string/following"
+            android:textColor="@color/novance_blue" />
+
+        <Button
+            android:id="@+id/followersBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:text="@string/followers"
+            android:textColor="@color/novance_blue" />
+
+        <Button
+            android:id="@+id/messagesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:text="@string/messages"
+            android:textColor="@color/novance_blue" />
+
+        <Button
+            android:id="@+id/analyticsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:text="@string/analytics"
+            android:textColor="@color/novance_blue" />
+
+        <Button
+            android:id="@+id/savedStartupsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:text="@string/saved_startups"
+            android:textColor="@color/novance_blue" />
+
+        <Button
+            android:id="@+id/settingsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:text="@string/settings"
+            android:textColor="@color/novance_blue" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/editProfileImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:contentDescription="@string/edit_profile"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+</RelativeLayout>

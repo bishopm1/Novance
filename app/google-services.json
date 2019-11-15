@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "274264468080",
+    "firebase_url": "https://novance-1d3c8.firebaseio.com",
+    "project_id": "novance-1d3c8",
+    "storage_bucket": "novance-1d3c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274264468080:android:a51da37a04fb3abcd962b5",
+        "android_client_info": {
+          "package_name": "com.novance.novance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274264468080-bfk9143rdvarp9nvcbs1nj2871jg2f70.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.novance.novance",
+            "certificate_hash": "49915a618f8ad1e1c4c88ae48c51bd6b680166cb"
+          }
+        },
+        {
+          "client_id": "274264468080-1cp9ujt87it74fu50on5utfrdrqqsr0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8mXXTdUXOMhq1lkMFkuQJU34cB15qdis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274264468080-1cp9ujt87it74fu50on5utfrdrqqsr0r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
