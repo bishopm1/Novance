@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     tools:context=".EditProfileActivity">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/editProfileImageView"
         android:layout_width="240dp"
         android:layout_height="240dp"
@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/user_profile_image"
-        app:srcCompat="@drawable/senior_photo_circle_" />
+        android:src="@drawable/ic_account_circle_black_240dp" />
 
     <include
         android:id="@+id/toolbar"
@@ -34,6 +34,7 @@
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName|text"
+        android:maxLength="30"
         android:textColor="@color/novance_blue"
         android:textColorHint="@color/novance_blue"
         android:textSize="30sp" />
@@ -51,6 +52,7 @@
         android:ems="10"
         android:hint="@string/lowerCaseUsername"
         android:inputType="textPersonName|text"
+        android:maxLength="20"
         android:textColor="@color/novance_mid_blue"
         android:textColorHint="@color/novance_mid_blue"
         android:textSize="14sp" />
@@ -69,14 +71,15 @@
         android:backgroundTint="@color/novance_grey"
         android:ems="10"
         android:hint="@string/bio"
-        android:inputType="textPersonName|text"
+        android:inputType="textPersonName|text|textMultiLine"
+        android:maxLength="200"
         android:text="@string/sample_bio"
         android:textColor="@color/novance_mid_blue"
         android:textColorHint="@color/novance_mid_blue"
         android:textSize="14sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/saveBtn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bioEditText"
@@ -100,5 +103,23 @@
         android:gravity="center"
         android:text="@string/at"
         android:textColor="@color/novance_mid_blue" />
+
+    <!-- Image Cropper fill the remaining available height -->
+    <com.theartofdev.edmodo.cropper.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfileImageView"
+        android:layout_marginStart="-50dp"
+        android:layout_marginTop="-13dp"
+        android:layout_toEndOf="@+id/editProfileImageView"
+        android:text="@string/tap_image_to_change"
+        android:textColor="@color/novance_grey"
+        android:textSize="10sp" />
 
 </RelativeLayout>

@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,21 +23,31 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -43,15 +57,16 @@ public class EditProfileActivity extends AppCompatActivity {
     //Profile Fragment tag
     private static final String TAG = "ProfileFragment";
 
+    private StorageTask uploadTask;
     StorageReference storageReference;
     DatabaseReference reference;
-    private static final int IMAGE_REQUEST = 1;
-    private Uri imageUri;
-    private StorageTask uploadTask;
+    Uri uri;
+    CircleImageView editProfileImageView;
+    boolean newImageSelected;
 
+    //TODO old profile image should be removed from firebase after changed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO set bio, full name, user name, and profile picture to users saved data, if none show defaults
 
         //gets user passed from login/create account activity
         Intent i = getIntent();
@@ -64,9 +79,20 @@ public class EditProfileActivity extends AppCompatActivity {
         nameEditText.setText(u.getFullName());
         EditText usernameEditText = findViewById(R.id.usernameEditText);
         usernameEditText.setText(u.getUsername());
-        ImageView editProfileImageView = (ImageView) findViewById(R.id.editProfileImageView);
-        if(u.getProfileImageUri() != null)
-            editProfileImageView.setImageURI(u.getProfileImageUri());
+        editProfileImageView = (CircleImageView) findViewById(R.id.editProfileImageView);
+        if (u.getProfileImageUri() != null) {
+            // Image link from internet
+            String link = u.getProfileImageUri().toString();
+
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_account_circle_black_240dp)
+                    .error(R.drawable.ic_account_circle_black_240dp);
+
+            Glide.with(this).load(link).apply(options).into(editProfileImageView);
+            editProfileImageView.setBorderColor(Color.parseColor("#243248"));
+            editProfileImageView.setBorderWidth(2);
+        }
         //TODO do the same for bio and profile picture
         //TODO handle editing of all elements inluding profile picture and bio
 
@@ -77,35 +103,71 @@ public class EditProfileActivity extends AppCompatActivity {
         editProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO add image to both editProfileImageView and profileImageView after updated
-                //TODO finsih figuring out profile image
-                openImage();
+                CropImage.startPickImageActivity(EditProfileActivity.this);
             }
         });
 
-        //TODO code save button
+        //TODO finish coding save button
+        Button saveBtn = (Button) findViewById(R.id.saveBtn);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (newImageSelected) {
+                    u.setProfileImageUri(uri);
+                    saveUser(u);
+                    uploadImage(u.getProfileImageUri());
+                }
+                //creates intent for main activity and starts
+                Intent i = new Intent(EditProfileActivity.this, MainNavActivity.class);
+                //passes user to next activity
+                i.putExtra("user", u);
+                i.putExtra("comingFrom", "EditProfileActivity");
+                startActivity(i);
+            }
+        });
     }
 
-    private void openImage() {
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(i, IMAGE_REQUEST);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+                uri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+            } else {
+                startCrop(imageUri);
+            }
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                uri = result.getUri();
+                editProfileImageView.setImageURI(uri);
+                newImageSelected = true;
+                Toast.makeText(this, "Profile image updated successfully!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getApplicationContext().getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    private void startCrop(Uri imageUri) {
+        CropImage.ActivityBuilder activityBuilder = CropImage.activity(imageUri);
+        activityBuilder.setAspectRatio(1, 1);
+        activityBuilder.setGuidelines(CropImageView.Guidelines.ON);
+        activityBuilder.setMultiTouchEnabled(true);
+        activityBuilder.start(this);
     }
 
-    private void uploadImage() {
+    private void uploadImage(Uri imageUri) {
         final ProgressBar pb = new ProgressBar(getApplicationContext());
         pb.setVisibility(View.VISIBLE);
 
         if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
-                    + "." + getFileExtension(imageUri));
+                    + "." + u.getId() + ".ProfileImage");
+
+            //TODO delete olf profile photo from database
 
             uploadTask = fileReference.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -146,24 +208,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            u.setProfileImageUri(imageUri);
-            saveUser(u);
-            if (uploadTask != null && uploadTask.isInProgress()) {
-                Toast.makeText(getApplicationContext(), "Upload in progress", Toast.LENGTH_SHORT).show();
-            } else {
-                uploadImage();
-            }
-        }
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getApplicationContext().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    public void saveUser(User u){
+    public void saveUser(User u) {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -172,5 +223,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editor.apply();
         Log.d(TAG, "User data saved internally");
     }
-    //TODO toast not showing in all of app
+    //TODO toast not showing in some of app
+    //TODO while profile image is loading put progress circle in spot
+    //TODO remove old image from firebase when new profile image is selected
 }

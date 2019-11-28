@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,13 +38,13 @@ public class LoginActivity extends AppCompatActivity {
     //declare instance of database
     private DatabaseReference mDatabase;
 
+    private StorageReference storageReference;
+
     //boolean to see if user just signed in
     boolean justSignedIn = false;
 
     //creates global user variable
-    User u; //TODO find a way to pass user to other activities
-
-    //TODO fix ALL highlight colors on edit texts
+    User u;
 
     //Login Activity tag
     private static final String TAG = "LoginActivity";
@@ -60,8 +63,6 @@ public class LoginActivity extends AppCompatActivity {
             //creates intent for main activity and starts
             Intent i = new Intent(LoginActivity.this, MainNavActivity.class);
             //passes user to next activity
-            //TODO not properly passing user when first signed in
-            //TODO profile fragment buttons don't look right on nexus
             i.putExtra("user", this.u);
             startActivity(i);
         }
@@ -151,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                                         u.setId(id);
                                         u.setUsername(temp.getUsername());
                                         u.setFullName(temp.getFullName());
+                                        u.setProfileImageUri(Uri.parse(dataSnapshot.child("imageURL").getValue().toString()));
                                         saveUser(u);
                                         Log.d(TAG, "User data read in");
                                         Intent i = new Intent(LoginActivity.this, MainNavActivity.class);

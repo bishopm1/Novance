@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".CreateAccountActivity"
-    android:theme="@style/LoginTheme">
+    android:theme="@style/LoginTheme"
+    tools:context=".CreateAccountActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -54,7 +54,18 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="1dp"
-            android:layout_marginBottom="-1dp"
+            android:layout_marginBottom="1dp"
+            android:textColor="#F44336"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/usernameErrorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/errorTextView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="1dp"
             android:textColor="#F44336"
             android:visibility="invisible" />
 
@@ -98,6 +109,7 @@
             android:ems="10"
             android:hint="@string/full_name"
             android:inputType="textPersonName|text"
+            android:maxLength="30"
             android:textColor="#243248"
             android:textColorHint="#243248" />
 
@@ -112,6 +124,7 @@
             android:ems="10"
             android:hint="@string/username"
             android:inputType="text"
+            android:maxLength="20"
             android:textColor="#243248"
             android:textColorHint="#243248" />
 

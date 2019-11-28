@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.storage.StorageReference;
+
 public class User implements Parcelable {
     String email;
     String password;
@@ -27,8 +29,12 @@ public class User implements Parcelable {
         username = in.readString();
         fullName = in.readString();
         id = in.readString();
-        if (in.readString() != null)
-            profileImageUri = in.readString();
+        String temp = in.readString();
+        if (temp != null) {
+            profileImageUri = temp;
+        } else {
+            profileImageUri = null;
+        }
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -96,7 +102,10 @@ public class User implements Parcelable {
         dest.writeString(username);
         dest.writeString(fullName);
         dest.writeString(id);
-        if (profileImageUri != null)
+        if (profileImageUri != null) {
             dest.writeString(profileImageUri);
+        } else {
+            dest.writeString(null);
+        }
     }
 }

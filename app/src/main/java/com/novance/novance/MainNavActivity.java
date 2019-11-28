@@ -52,6 +52,7 @@ public class MainNavActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO if coming from editing profile, open profile fragment
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -78,5 +79,12 @@ public class MainNavActivity extends AppCompatActivity {
         });
 
         NavigationUI.setupWithNavController(navView, navController);
+
+        String temp = i.getStringExtra("comingFrom");
+        if(temp != null){
+            if(temp.equals("EditProfileActivity")){
+                navController.navigate(R.id.navigation_profile);
+            }
+        }
     }
 }

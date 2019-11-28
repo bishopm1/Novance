@@ -1,9 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreatePostActivity">
+    android:background="#FFFFFF"
+    tools:context=".CreatePostActivity"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/startupVideoTextView"
+                android:layout_marginTop="0dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startupCoverImgTextView"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:contentDescription="@string/startup_cover_image"
+                app:srcCompat="@drawable/ic_add_a_photo_black_96dp" />
+
+
+            <EditText
+                android:id="@+id/startupNmEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startupNmTextView"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/novance_grey"
+                android:ems="10"
+                android:hint="@string/startup_name"
+                android:maxLength="40"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/novance_mid_blue"
+                android:textColorHint="@color/novance_mid_blue"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/shortDescEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shortDescTextView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/novance_grey"
+                android:ems="10"
+                android:hint="@string/short_startup_desc"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName|textMultiLine"
+                android:minWidth="340dp"
+                android:maxLength="280"
+                android:textColor="@color/novance_mid_blue"
+                android:textColorHint="@color/novance_mid_blue"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/fullDescEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fullDescTextView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/novance_grey"
+                android:ems="10"
+                android:hint="@string/full_startup_desc"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName|textMultiLine"
+                android:minWidth="340dp"
+                android:textColor="@color/novance_mid_blue"
+                android:textColorHint="@color/novance_mid_blue"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/tagsEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagsTextView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/novance_grey"
+                android:ems="10"
+                android:hint="@string/tags_hint"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName|textMultiLine"
+                android:minWidth="340dp"
+                android:scrollHorizontally="false"
+                android:textColor="@color/novance_mid_blue"
+                android:textColorHint="@color/novance_mid_blue"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/startupNmTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/startup_name"
+                android:textColor="@color/novance_blue"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/startupCoverImgTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startupNmEditText"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/caps_startup_cover_image"
+                android:textColor="@color/novance_blue"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/startupVideoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/startup_video"
+                android:textColor="@color/novance_blue"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/shortDescTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/changeVideoButton"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/short_startup_desc"
+                android:textColor="@color/novance_blue"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/fullDescTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/shortDescEditText"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/full_startup_desc"
+                android:textColor="@color/novance_blue"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tagsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fullDescEditText"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/tags"
+                android:textColor="@color/novance_blue"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/changeVideoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/videoView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="@string/change_video" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
+
